@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>pl.jakubchmura.snmp.mib</id>
   <name>MIB support</name>
-  <version>1.5.2</version>
+    <version>1.7.3</version>
   <vendor email="chmura.jakub@gmail.com">Jakub Chmura</vendor>
 
   <description><![CDATA[
@@ -10,6 +10,16 @@
     ]]></description>
 
   <change-notes><![CDATA[
+      <b>1.7</b><br/>
+      <ul>
+          <li>Quick documentation improvements: description, syntax, objects, hyperlinks</li>
+          <li>Code folding for module definition, mib node and textual convention</li>
+      </ul>
+      <b>1.6</b><br/>
+      <ul>
+          <li>Calculate Trap OID for SMIv1 TRAP-TYPE according to RFC 3584</li>
+          <li>Not imported references to standard MIBs are just warnings</li>
+      </ul>
       <b>1.5</b><br/>
       <ul>
         <li>Performance improvements</li>
@@ -42,7 +52,7 @@
   </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="145.0"/>
+  <idea-version since-build="193"/>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
@@ -51,8 +61,8 @@
   <depends optional="true" config-file="properties-features.xml">com.intellij.properties</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <fileTypeFactory implementation="pl.jakubchmura.snmp.mib.MibFileTypeFactory"/>
-
+    <fileType name="MIB file" language="SMI" implementationClass="pl.jakubchmura.snmp.mib.MibFileType"
+              extensions="mib;my" patterns="*-MIB;*-TC;*-SMI;*-CONF"/>
     <lang.parserDefinition language="SMI" implementationClass="pl.jakubchmura.snmp.mib.SmiParserDefinition"/>
     <lang.syntaxHighlighterFactory language="SMI" implementationClass="pl.jakubchmura.snmp.mib.highlight.SmiSyntaxHighlighterFactory"/>
     <lang.elementManipulator forClass="pl.jakubchmura.snmp.mib.psi.SmiIdentifiableElement" implementationClass="pl.jakubchmura.snmp.mib.reference.manipulator.SmiIdentifiableElementManipulator"/>
@@ -62,6 +72,7 @@
     <lang.commenter language="SMI" implementationClass="pl.jakubchmura.snmp.mib.commenter.SmiCommenter"/>
     <lang.documentationProvider language="SMI" implementationClass="pl.jakubchmura.snmp.mib.doc.SmiDocumentationProvider"/>
     <lang.braceMatcher language="SMI" implementationClass="pl.jakubchmura.snmp.mib.highlight.SmiBraceMatcher"/>
+    <lang.foldingBuilder language="SMI" implementationClass="pl.jakubchmura.snmp.mib.folding.SmiFoldingBuilder"/>
 
     <stubElementTypeHolder class="pl.jakubchmura.snmp.mib.parsing.SmiElementsTypes"/>
     <indexedRootsProvider implementation="pl.jakubchmura.snmp.mib.StandardSnmpMibs"/>
